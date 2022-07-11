@@ -41,8 +41,8 @@ Fill in the blanks for filtering for hotel bookings where the guest is **not** f
 ```{r travel-whim, eval=FALSE}
 hotels %>%
   filter(
-    country ____ "USA", 
-    lead_time ____ ____
+    country != "USA", 
+    lead_time < 1
     )
 ```
 
@@ -60,7 +60,7 @@ In the following chunk, replace
 ```{r some-children, eval=FALSE}
 hotels %>%
   filter(
-    children [AT LEAST] 1 [OR] babies [AT LEAST] 1
+    children >= 1 | babies >= 1
     )
 ```
 
@@ -72,13 +72,19 @@ Using `filter()` determine the number of bookings in resort hotels that have mor
 Then, do the same for city hotels, and compare the numbers of rows in the resulting filtered data frames.
 
 ```{r resort-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+    filter(
+    hotel == "Resort Hotel", 
+    children >= 1 | babies >= 1
+    )
 ```
 
 ```{r city-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter(
+    hotel == "City Hotel",
+    children >= 1 | babies >= 1
+    )
 ```
 
 ### Exercise 5.
@@ -93,8 +99,10 @@ Your label should be short, informative, and shouldn't include spaces.
 It also shouldn't repeat a previous label, otherwise R Markdown will give you an error about repeated R chunk labels.
 
 ```{r label-me-1}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  select(
+    adults) %>% 
+    arrange(desc(adults))
 ```
 
 ### Exercise 6.
