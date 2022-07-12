@@ -100,7 +100,7 @@ It also shouldn't repeat a previous label, otherwise R Markdown will give you an
 
 ```{r adults count}
 hotels %>%
-  count(adults, sort = TRUE)
+  count(adults, sort = TRUE) 
 ```
 
 ### Exercise 6.
@@ -113,7 +113,8 @@ What does this reveal about the surprising results you spotted in the previous e
 ```{r canceled}
 hotels %>%
   filter(is_canceled == 1) %>% 
-  count(adults, sort = TRUE)
+  count(adults, sort = TRUE) %>% 
+  arrange(desc(n))
 ```
 
 
@@ -129,8 +130,16 @@ Calculate minimum, mean, median, and maximum average daily rate (`adr`) grouped 
 Which type of hotel is higher, on average?
 
 ```{r label-me-3}
-# add code here
-# pay attention to correctness and code style
+hotels %>% 
+  filter(adr > 0 | adr < 5400) %>% 
+  group_by(hotel) %>% 
+  summarize(
+    min_adr = min(adr),
+    mean_adr = mean(adr),
+    median_adr = median(adr),
+    max_adr = max(adr)
+    )
+  
 ```
 
 ### Exercise 8.
@@ -143,8 +152,7 @@ You can investigate the data in the viewer to locate these values, but preferabl
 **Hint:** For example, you can `filter` for the given `adr` amounts and `select` the relevant columns.
 
 ```{r label-me-4}
-# add code here
-# pay attention to correctness and code style
+
 ```
 
 ## Data dictionary

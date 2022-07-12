@@ -210,7 +210,7 @@ Markdown will give you an error about repeated R chunk labels.
 
 ``` r
 hotels %>%
-  count(adults, sort = TRUE)
+  count(adults, sort = TRUE) 
 ```
 
     ## # A tibble: 14 × 2
@@ -244,7 +244,8 @@ exercise?
 ``` r
 hotels %>%
   filter(is_canceled == 1) %>% 
-  count(adults, sort = TRUE)
+  count(adults, sort = TRUE) %>% 
+  arrange(desc(n))
 ```
 
     ## # A tibble: 14 × 2
@@ -287,9 +288,22 @@ grouped by `hotel` type so that you can get these statistics separately
 for resort and city hotels. Which type of hotel is higher, on average?
 
 ``` r
-# add code here
-# pay attention to correctness and code style
+hotels %>% 
+  filter(adr > 0 | adr < 5400) %>% 
+  group_by(hotel) %>% 
+  summarize(
+    min_adr = min(adr),
+    mean_adr = mean(adr),
+    median_adr = median(adr),
+    max_adr = max(adr)
+    )
 ```
+
+    ## # A tibble: 2 × 5
+    ##   hotel        min_adr mean_adr median_adr max_adr
+    ##   <chr>          <dbl>    <dbl>      <dbl>   <dbl>
+    ## 1 City Hotel      0       105.        99.9    5400
+    ## 2 Resort Hotel   -6.38     95.0       75       508
 
 ### Exercise 8.
 
@@ -303,11 +317,6 @@ reproducible way with some code.
 
 **Hint:** For example, you can `filter` for the given `adr` amounts and
 `select` the relevant columns.
-
-``` r
-# add code here
-# pay attention to correctness and code style
-```
 
 ## Data dictionary
 
